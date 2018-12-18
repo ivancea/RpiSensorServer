@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+    server:
+        build: ./server
+        ports:
+            - "80:80"
+            - "443:443"
+        depends_on:
+            - db
+        environment:
+            POSTGRES_CONNECTION_STRING: "Host=db;Database=rpiss;Username=rpiss;Password=rpiss"
+    db:
+        image: postgres:11
+        ports:
+            - "5432:5432"
+        environment:
+            POSTGRES_DB: "rpiss"
+            POSTGRES_USER: "rpiss"
+            POSTGRES_PASSWORD: "rpiss"
+        volumes:
+            - db-data:/var/lib/postgresql/data
+volumes:
+  db-data:
